@@ -1,0 +1,5 @@
+chromadb==0.4.24
+fastapi==0.110.2
+google-genai==1.23.0
+pandas==2.2.2
+uvicorn==0.29.0
