@@ -60,22 +60,43 @@ def load_documents():
     return docs
 
 # ----------------- Insert to DB if Needed -----------------
+# def populate_db_if_empty(collection):
+#     if collection.count() == 0:
+#         print("Inserting documents into ChromaDB...")
+#         docs = load_documents()
+#         batch_size = 100
+#         for i in range(0, len(docs), batch_size):
+#             batch = docs[i:i+batch_size]
+#             collection.add(
+#                 documents=[d["content"] for d in batch],
+#                 metadatas=[d["metadata"] for d in batch],
+#                 ids=[f"doc_{i + j}" for j in range(len(batch))]
+#             )
+#             print(f" Inserted batch {i}–{i+len(batch)-1}")
+#         print("Done inserting documents.")
+#     else:
+#         print("ChromaDB already populated.")
+
 def populate_db_if_empty(collection):
-    if collection.count() == 0:
-        print("Inserting documents into ChromaDB...")
-        docs = load_documents()
-        batch_size = 100
-        for i in range(0, len(docs), batch_size):
-            batch = docs[i:i+batch_size]
+    if collection is None:
+        print("⚠️ No Chroma collection. Skipping population.")
+        return
+
+    try:
+        count = collection.count()
+        print(f"📦 DB currently contains {count} items")
+        if count == 0:
+            print("📥 Populating database...")
+            docs = load_documents()
             collection.add(
-                documents=[d["content"] for d in batch],
-                metadatas=[d["metadata"] for d in batch],
-                ids=[f"doc_{i + j}" for j in range(len(batch))]
+                documents=[d["content"] for d in docs],
+                metadatas=[d["metadata"] for d in docs],
+                ids=[f"doc_{i}" for i in range(len(docs))]
             )
-            print(f" Inserted batch {i}–{i+len(batch)-1}")
-        print("Done inserting documents.")
-    else:
-        print("ChromaDB already populated.")
+            print("✅ DB population completed.")
+    except Exception as e:
+        print(f"❌ populate_db_if_empty error: {e}")
+
 
 # ----------------- Prompt + Parsing -----------------
 
@@ -215,7 +236,7 @@ def generate_roadmap(course, level, duration, collection ,model="models/gemini-2
     print(f"Roadmap saved to: {filename}")
     return roadmap
 
-import rag_app.models as EvaluateQuiz
+import models as EvaluateQuiz
 def generate_quiz(language, level, model="models/gemini-2.5-flash"):
     query = f"Generate a quiz for {language} at {level} level"
     prompt = f"""You are an expert quiz generator. Create a quiz for the following request: 
