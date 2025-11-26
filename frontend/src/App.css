@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.App {
+  text-align: center;
+}
+.react-flow__attribution {
+  display: none !important;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mobile-blocker {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #020617; /* dark background */
+}
+
+.mobile-blocker-card {
+  max-width: 420px;
+  width: 100%;
+  padding: 2rem 2.5rem;
+  border-radius: 1.5rem;
+  background: #020617;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  text-align: center;
+}
+
+.mobile-blocker-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.75rem;
+  color: #e5e7eb;
+}
+
+.mobile-blocker-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #9ca3af;
+}
+
