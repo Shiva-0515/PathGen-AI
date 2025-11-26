@@ -17,8 +17,11 @@ const authManualRoutes = require("./Routes/authManual");
 
 const app = express();
 
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+const isProduction = !"http://localhost:3000"?true:false;
+
 app.use(cors({
-  origin: 'http://localhost:3000', // frontend origin
+  origin: CLIENT_URL, // frontend origin
   credentials: true
 }));
 app.use(bodyParser.json());
