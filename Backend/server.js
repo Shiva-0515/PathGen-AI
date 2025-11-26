@@ -21,6 +21,8 @@ const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
 
 const isProduction = process.env.NODE_ENV === "production";
 
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: [
