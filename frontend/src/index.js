@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 // import { ClerkProvider } from "@clerk/clerk-react";
-import ClerkAppearanceProvider from "./components/ClerkAppearanceProvider";
+// import ClerkAppearanceProvider from "./components/ClerkAppearanceProvider";
 
 const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
@@ -14,9 +14,9 @@ if (!PUBLISHABLE_KEY) {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ClerkAppearanceProvider publishableKey={PUBLISHABLE_KEY}>
+    {/* <ClerkAppearanceProvider publishableKey={PUBLISHABLE_KEY}> */}
         <App />
-      </ClerkAppearanceProvider>
+      {/* </ClerkAppearanceProvider> */}
   </React.StrictMode>
 );
 
