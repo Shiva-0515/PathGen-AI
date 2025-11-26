@@ -6,9 +6,9 @@ export default function ProtectedRoute({ children }) {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const location = useLocation();
-
+  const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   useEffect(() => {
-    fetch("http://localhost:5000/auth/status", {
+    fetch(`${API}/auth/status`, {
       method: "GET",
       credentials: "include",
     })

@@ -35,12 +35,13 @@ const StyledBox = styled('div')(({ theme }) => ({
 }));
 
 export default function Hero() {
+  const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/auth/status', {
+    fetch(`${API}/auth/status`, {
       method: 'GET',
       credentials: 'include', // important to send cookies
     })

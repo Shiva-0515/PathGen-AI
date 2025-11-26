@@ -172,6 +172,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 export default function AppAppBar() {
+  const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
 
@@ -183,7 +184,7 @@ export default function AppAppBar() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/auth/status", {
+    fetch(`${API}/auth/status`, {
       method: "GET",
       credentials: 'include',
     })
@@ -195,7 +196,7 @@ export default function AppAppBar() {
   }, []);
 
   const handleLogout = async () => {
-    await fetch("http://localhost:5000/logout", {
+    await fetch(`${API}/logout`, {
       method: "GET",
       // withCredentials: true,
       credentials: 'include',
