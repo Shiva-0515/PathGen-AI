@@ -63,13 +63,12 @@ passport.use(new GoogleStrategy({
 
 
 passport.serializeUser((user, done) => {
-  console.log("🔵 serializeUser:", user);
-  done(null, user);  // Or user.id
+  done(null, user._id); 
 });
 
-passport.deserializeUser((obj, done) => {
-  console.log("🟢 deserializeUser:", obj);
-  done(null, obj);
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
+  done(null, user);
 });
 
 
