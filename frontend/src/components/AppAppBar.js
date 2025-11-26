@@ -154,9 +154,6 @@ import ColorModeIconDropdown from '../ColorModeIconDropdown';
 import Sitemark from './SitemarkIcon';
 import { useNavigate } from "react-router-dom";
 
-// Clerk imports
-import ClerkThemedAuth from './ClerkThemedWrapper';
-import AppTheme from '../AppTheme';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
