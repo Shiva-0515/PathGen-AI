@@ -17,7 +17,7 @@ import ForgotPassword from './ForgotPassword';
 import AppTheme from '../AppTheme';
 import ColorModeSelect from '../ColorModeSelect';
 import { useNavigate } from 'react-router-dom';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
+import { GoogleIcon, SitemarkIcon } from './CustomIcons';
 import axios from "axios";
 
 
@@ -67,6 +67,8 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignIn(props) {
+
+  const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   const Navigate = useNavigate();
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
@@ -77,10 +79,10 @@ export default function SignIn(props) {
   const handleGoogleSignIn = async () => {
   try {
     // Optional: ping backend before redirect
-    await axios.get("http://localhost:5000/auth/status", { withCredentials: true });
+    await axios.get(`${API}/auth/status`, { withCredentials: true });
 
     // If backend responds, redirect to Google OAuth
-    window.location.href = "http://localhost:5000/auth/google";
+    window.location.href = `${API}/auth/google`;
   } catch (error) {
     console.error("Google Login Error:", error);
     alert("Backend is offline or authentication failed.");
@@ -111,7 +113,7 @@ export default function SignIn(props) {
 
   try {
     const response = await axios.post(
-      "http://localhost:5000/auth/signin",
+      `${API}/auth/signin`,
       payload,
       {
         withCredentials: true, // required for JWT cookie

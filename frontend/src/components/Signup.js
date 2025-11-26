@@ -7,7 +7,7 @@ import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -15,7 +15,7 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import AppTheme from '../AppTheme';
 import ColorModeSelect from '../ColorModeSelect';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
+import { GoogleIcon, SitemarkIcon } from './CustomIcons';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
@@ -66,6 +66,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignUp(props) {
+  const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   const Navigate = useNavigate();
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
@@ -80,10 +81,10 @@ const handleGoogleSignup = async () => {
   setGoogleLoading(true);
   try {
     // Optional: check backend connection
-    await axios.get("http://localhost:5000/auth/status", { withCredentials: true });
+    await axios.get(`${API}/auth/status`, { withCredentials: true });
 
     // Redirect to Google OAuth signup/login (same route)
-    window.location.href = "http://localhost:5000/auth/google";
+    window.location.href = `${API}/auth/google`;
   } catch (error) {
     console.error("Google signup error:", error);
     alert("Cannot connect to authentication server.");
@@ -146,7 +147,7 @@ const handleGoogleSignup = async () => {
 
   try {
     const response = await axios.post(
-      "http://localhost:5000/auth/signup",
+      `${API}/auth/signup`,
       payload,
       {
         withCredentials: true, // important if using cookies/JWT
