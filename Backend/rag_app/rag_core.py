@@ -215,7 +215,7 @@ def generate_roadmap(course, level, duration, collection ,model="models/gemini-2
     print(f"Roadmap saved to: {filename}")
     return roadmap
 
-import rag_app.models as EvaluateQuiz
+import models as EvaluateQuiz
 def generate_quiz(language, level, model="models/gemini-2.5-flash"):
     query = f"Generate a quiz for {language} at {level} level"
     prompt = f"""You are an expert quiz generator. Create a quiz for the following request: 

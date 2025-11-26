@@ -1,6 +1,6 @@
 import sys
 import json
-from rag_app.rag_core import generate_roadmap, populate_db_if_empty , setup_collection
+from rag_core import generate_roadmap, populate_db_if_empty , setup_collection
 
 # Setup ChromaDB collection
 # and populate if empty

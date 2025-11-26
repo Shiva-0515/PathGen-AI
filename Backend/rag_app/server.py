@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from rag_app.rag_core import generate_roadmap, generate_quiz, evaluate_quiz, generate_feedback
-from rag_app.run_roadmap import get_collection
-from rag_app.models import RoadmapRequest, QuizRequest , EvaluateQuiz
+from rag_core import generate_roadmap, generate_quiz, evaluate_quiz, generate_feedback
+from run_roadmap import get_collection
+from models import RoadmapRequest, QuizRequest , EvaluateQuiz
 app = FastAPI()
 
 # Setup the collection once when server starts
