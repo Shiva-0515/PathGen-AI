@@ -131,7 +131,8 @@ const RoadmapFlow = () => {
 
         {/* Inputs */}
         <div style={{ display: 'flex', gap: 16, marginBottom: 32, flexWrap: 'wrap' }}>
-          <input
+          <TextField
+            variant='outlined'
             type="text"
             value={course}
             onChange={(e) => setCourse(e.target.value)}
@@ -150,8 +151,9 @@ const RoadmapFlow = () => {
               <MenuItem value="Intermediate">Intermediate</MenuItem>
               <MenuItem value="Advanced">Advanced</MenuItem>
             </TextField>
-          <input
+          <TextField
             type="text"
+            variant='outlined'
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
             placeholder="Duration (ex: 30 days)"

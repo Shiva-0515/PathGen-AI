@@ -212,7 +212,7 @@ export default function QuizSelector() {
             <Button
             type="submit"
             sx={{
-              minWidth: { xs: "100%", sm: 160 },
+              minWidth: { xs: "90%", sm: 160 },
               height: 56,
               backgroundColor: "#1976D2 !important", // << force background
               color: "#fff !important",              // << force text color
