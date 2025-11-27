@@ -147,7 +147,7 @@ export default function Hero() {
               size="small"
               sx={{ minWidth: 'fit-content' }}
               onClick={() => {
-                window.location.href = "http://localhost:5000/auth/google";
+                window.location.href = `${API}/auth/google`;
               }}
             >
               Start now
