@@ -7,7 +7,9 @@ import {
   Container,
   Divider,
   TextField,
-  MenuItem
+  MenuItem,
+  Box,
+  Button
 } from '@mui/material';
 import {
   ReactFlow,
@@ -124,26 +126,56 @@ const RoadmapFlow = () => {
       <AppAppBar />
 
       <Container sx={{ mt: 12, mb: 6 }}> {/* Margin top for AppBar */}
-        <h1 style={{ textAlign: 'center', marginBottom: 16 }}>Learning Roadmap Generator</h1>
+        {/* <h1 style={{ textAlign: 'center', marginBottom: 16 }}>Learning Roadmap Generator</h1>
         <p style={{ textAlign: 'center', color: 'gray', marginBottom: 32 }}>
           Generate personalized learning paths for your coding journey
-        </p>
+        </p> */}
 
+        <h1 style={{
+            textAlign: 'center',
+            marginBottom: '16px',
+            fontSize: '3.5em', // Larger font size
+            fontWeight: 800, // Bolder
+            letterSpacing: '-1px', // Tighter letter spacing
+            color: '#333', // Darker, more prominent color
+            textShadow: '2px 2px 8px rgba(0,0,0,0.1)', // Subtle text shadow for depth
+          }}>
+            Learning Roadmap Generator
+          </h1>
+          <p style={{
+            textAlign: 'center',
+            color: '#666', // Slightly darker than gray for better readability
+            marginBottom: '32px',
+            fontSize: '1.2em', // Slightly larger font for the description
+            lineHeight: '1.5', // Better line spacing
+            maxWidth: '600px', // Limit width for better readability on large screens
+            margin: '0 auto 32px auto', // Center the paragraph and apply bottom margin
+            fontFamily: '"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', // Modern, clean font stack
+          }}>
+            Generate personalized learning paths for your coding journey
+          </p>
         {/* Inputs */}
-        <div style={{ display: 'flex', gap: 16, marginBottom: 32, flexWrap: 'wrap' }}>
-          <TextField
-            variant='outlined'
-            type="text"
-            value={course}
-            onChange={(e) => setCourse(e.target.value)}
-            placeholder="Course / Subject"
-            style={{ flex: 1, padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-          />
-          <TextField
+        <Box 
+            sx={{ 
+              display: 'flex', 
+              gap: 2, 
+              mb: 4, 
+              flexWrap: 'wrap' 
+            }}
+          >
+            <TextField
+              variant="outlined"
+              value={course}
+              onChange={(e) => setCourse(e.target.value)}
+              placeholder="Course / Subject"
+              sx={{ flex: 1, minWidth: "200px" }}
+            />
+
+            <TextField
               label="Level"
               select
               variant="outlined"
-              sx={{ minWidth: { xs: "100%", sm: 180 } }}
+              sx={{ flex: 1, minWidth: "200px" }}   // 👈 Forces same sizing
               value={level}
               onChange={(e) => setLevel(e.target.value)}
             >
@@ -151,29 +183,29 @@ const RoadmapFlow = () => {
               <MenuItem value="Intermediate">Intermediate</MenuItem>
               <MenuItem value="Advanced">Advanced</MenuItem>
             </TextField>
-          <TextField
-            type="text"
-            variant='outlined'
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-            placeholder="Duration (ex: 30 days)"
-            style={{ flex: 1, padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-          />
-          <button
-            onClick={handleSubmit}
-            disabled={isLoading}
-            style={{
-              backgroundColor: '#1976d2',
-              color: 'white',
-              padding: '8px 16px',
-              borderRadius: 4,
-              border: 'none',
-              cursor: 'pointer'
-            }}
-          >
-            {isLoading ? 'Generating...' : 'Generate Roadmap'}
-          </button>
-        </div>
+
+            <TextField
+              type="text"
+              variant="outlined"
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+              placeholder="Duration (ex: 30 days)"
+              sx={{ flex: 1, minWidth: "200px" }}
+            />
+
+            <Button 
+              variant="contained"
+              onClick={handleSubmit}
+              disabled={isLoading}
+              sx={{
+                height: "56px",   // 👈 match TextField height
+                flexShrink: 0
+              }}
+            >
+              {isLoading ? "Generating..." : "Generate Roadmap"}
+            </Button>
+          </Box>
+
 
         <Divider sx={{ mb: 4 }} />
 
