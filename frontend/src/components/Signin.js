@@ -15,7 +15,7 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
 import AppTheme from '../AppTheme';
-import ColorModeSelect from '../ColorModeSelect';
+// import ColorModeSelect from '../ColorModeSelect';
 import { useNavigate } from 'react-router-dom';
 import { GoogleIcon, SitemarkIcon } from './CustomIcons';
 import axios from "axios";
@@ -160,7 +160,7 @@ export default function SignIn(props) {
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
-        <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
+        {/* <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} /> */}
         <Card variant="outlined">
           <SitemarkIcon />
           <Typography

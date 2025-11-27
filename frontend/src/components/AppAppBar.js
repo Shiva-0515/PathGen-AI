@@ -150,7 +150,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import ColorModeIconDropdown from '../ColorModeIconDropdown';
+// import ColorModeIconDropdown from '../ColorModeIconDropdown';
 import Sitemark from './SitemarkIcon';
 import { useNavigate } from "react-router-dom";
 
@@ -258,15 +258,15 @@ export default function AppAppBar() {
               {/* <ClerkThemedAuth/> */}
 
 
-            <ColorModeIconDropdown />
+            {/* <ColorModeIconDropdown /> */}
           </Box>
 
           {/* Mobile drawer */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
-            <ColorModeIconDropdown size="medium" />
+            {/* <ColorModeIconDropdown size="medium" />
             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <Drawer
               anchor="top"
               open={open}
@@ -301,12 +301,6 @@ export default function AppAppBar() {
                     <Button color="secondary" variant="outlined" fullWidth onClick={handleLogout}>Logout</Button>
                   </MenuItem>
                 )}
-               
-
-                {/* CLERK MOBILE AUTH */}
-                {/* <Divider sx={{ my: 3 }} />
-                
-                  <ClerkThemedAuth/> */}
 
               </Box>
             </Drawer>

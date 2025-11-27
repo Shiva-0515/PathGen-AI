@@ -162,7 +162,7 @@ export default function Footer() {
         </div>
 
         <Stack direction="row" spacing={1} useFlexGap sx={{ justifyContent: 'left', color: 'text.secondary' }}>
-          <IconButton color="inherit" size="small" href="https://github.com/Shiva-0515" aria-label="GitHub">
+          <IconButton color="inherit" size="small" href="https://github.com/Shiva-0515/PathGen-AI/" aria-label="GitHub">
             <GitHubIcon />
           </IconButton>
           <IconButton color="inherit" size="small" href="https://www.linkedin.com/in/shiva-kanchanapelli-30b944350/" aria-label="LinkedIn">
