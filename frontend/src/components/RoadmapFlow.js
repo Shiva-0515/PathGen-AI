@@ -200,32 +200,48 @@ const RoadmapFlow = () => {
             />
 
             <Button
-              variant="contained"
-              onClick={handleSubmit}
-              disabled={isLoading}
-              sx={{
-                height: "45px",
-                flexShrink: 0,
-                backgroundColor: "#1e88e5 !important", 
-                color: "#fff !important",
-                borderRadius: "6px",
-                fontWeight: 600,
-                transition: "0.25s ease",
-                boxShadow: "0 0 6px rgba(25,118,210,0.4)",
-                "&:hover": {
-                  backgroundColor: "#1e88e5 !important",
-                  boxShadow: "0 0 12px rgba(30,136,229,0.8)",
-                  transform: "translateY(-2px)",
-                },
-                "&:disabled": {
-                  backgroundColor: "#90caf9 !important",
-                  boxShadow: "none",
-                  transform: "none",
-                },
-              }}
-            >
-              {isLoading ? "Generating..." : "Generate Roadmap"}
-            </Button>
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+            disabled={isLoading}
+            sx={{
+              height: "45px",
+              flexShrink: 0,
+              borderRadius: "6px",
+              fontWeight: 600,
+              backgroundColor: "#1e88e5 !important",
+              color: "#fff !important",
+              transition: "0.25s ease",
+              boxShadow: "0 0 6px rgba(30,136,229,0.35)",
+              "&:hover": {
+                backgroundColor: "#1565c0 !important", // slightly darker on hover
+                boxShadow: "0 0 12px rgba(30,136,229,0.6)",
+                transform: "translateY(-2px)",
+              },
+              "&:active": {
+                backgroundColor: "#0d47a1 !important",
+                transform: "scale(0.97)",
+                boxShadow: "0 0 6px rgba(30,136,229,0.5)",
+              },
+              "& .MuiTouchRipple-root span": {
+                backgroundColor: "#bbdefb !important", // ripple color
+                opacity: 0.4,
+              },
+              "&:focus-visible": {
+                outline: "2px solid #64b5f6",
+                outlineOffset: "2px",
+              },
+              "&:disabled": {
+                backgroundColor: "#90caf9 !important",
+                color: "#f5f5f5 !important",
+                boxShadow: "none",
+                transform: "none",
+              },
+            }}
+          >
+            {isLoading ? "Generating..." : "Generate Roadmap"}
+          </Button>
+
           </Box>
 
 
