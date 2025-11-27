@@ -86,4 +86,12 @@ router.get("/auth/status", (req, res) => {
   res.json({ loggedIn: false });
 });
 
+router.get("/logout", (req, res) => {
+  req.logout(() => {
+    req.session.destroy(() => {
+      res.clearCookie("connect.sid");
+      res.json({ message: "Logged out successfully" });
+    });
+  });
+});
 module.exports = router;
