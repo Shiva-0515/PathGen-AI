@@ -131,29 +131,35 @@ const RoadmapFlow = () => {
           Generate personalized learning paths for your coding journey
         </p> */}
 
-        <h1 style={{
+        <h1
+          style={{
             textAlign: 'center',
             marginBottom: '16px',
-            fontSize: '3.5em', // Larger font size
-            fontWeight: 800, // Bolder
-            letterSpacing: '-1px', // Tighter letter spacing
-            color: '#333', // Darker, more prominent color
-            textShadow: '2px 2px 8px rgba(0,0,0,0.1)', // Subtle text shadow for depth
-          }}>
-            Learning Roadmap Generator
-          </h1>
-          <p style={{
+            fontSize: '3.2em',
+            fontWeight: 800,
+            letterSpacing: '-0.5px',
+            color: '#2196f3',
+            textShadow: '0 0 6px rgba(33,150,243,0.5)',
+          }}
+        >
+          Learning Roadmap Generator
+        </h1>
+
+        <p
+          style={{
             textAlign: 'center',
-            color: '#666', // Slightly darker than gray for better readability
+            color: '#5fa9f5',
             marginBottom: '32px',
-            fontSize: '1.2em', // Slightly larger font for the description
-            lineHeight: '1.5', // Better line spacing
-            maxWidth: '600px', // Limit width for better readability on large screens
-            margin: '0 auto 32px auto', // Center the paragraph and apply bottom margin
-            fontFamily: '"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', // Modern, clean font stack
-          }}>
-            Generate personalized learning paths for your coding journey
-          </p>
+            fontSize: '1.15em',
+            maxWidth: '600px',
+            margin: '0 auto 32px auto',
+            fontFamily: '"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+            textShadow: '0 0 4px rgba(33,150,243,0.3)',
+          }}
+        >
+          Generate personalized learning paths for your coding journey
+        </p>
+
         {/* Inputs */}
         <Box 
             sx={{ 
@@ -193,13 +199,29 @@ const RoadmapFlow = () => {
               sx={{ flex: 1, minWidth: "200px" }}
             />
 
-            <Button 
+            <Button
               variant="contained"
               onClick={handleSubmit}
               disabled={isLoading}
               sx={{
-                height: "56px",   // 👈 match TextField height
-                flexShrink: 0
+                height: "45px",
+                flexShrink: 0,
+                backgroundColor: "#1976d2 !important", 
+                color: "#fff !important",
+                borderRadius: "6px",
+                fontWeight: 600,
+                transition: "0.25s ease",
+                boxShadow: "0 0 6px rgba(25,118,210,0.4)",
+                "&:hover": {
+                  backgroundColor: "#1e88e5 !important",
+                  boxShadow: "0 0 12px rgba(30,136,229,0.8)",
+                  transform: "translateY(-2px)",
+                },
+                "&:disabled": {
+                  backgroundColor: "#90caf9 !important",
+                  boxShadow: "none",
+                  transform: "none",
+                },
               }}
             >
               {isLoading ? "Generating..." : "Generate Roadmap"}
