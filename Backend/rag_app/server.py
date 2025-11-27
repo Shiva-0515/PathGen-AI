@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from rag_core import generate_roadmap, generate_quiz, evaluate_quiz, generate_feedback , populate_db_if_empty
-from run_roadmap import get_collection
+from rag_core import setup_collection, generate_roadmap, generate_quiz, evaluate_quiz, generate_feedback , populate_db_if_empty
+# from run_roadmap import get_collection
 from models import RoadmapRequest, QuizRequest , EvaluateQuiz
 app = FastAPI()
 
 # Setup the collection once when server starts
-collection = get_collection()
+# collection = get_collection()
+collection = setup_collection()
 print("ChromaDB collection ready:", collection)
 class RoadmapRequest(BaseModel):
     course: str
