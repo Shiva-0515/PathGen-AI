@@ -46,20 +46,21 @@ def setup_collection():
     return collection
 
 # ----------------- Dataset Preparation -----------------
-def load_documents():
-    df = pd.read_csv(CSV_PATH)
-    docs = []
-    for _, row in df.iterrows():
-        content = f"""Course: {row['Course']}\nTopics: {row['Topics']}\nLevel: {row['Level']}"""
-        docs.append({
-            "content": content,
-            "metadata": {
-                "course": row['Course'],
-                "topics": row['Topics'],
-                "level": row['Level']
-            }
-        })
-    return docs
+def load_documents(batch_size=100):
+    """Generator that yields small document batches instead of loading everything at once."""
+    
+    for chunk in pd.read_csv(CSV_PATH, chunksize=batch_size):
+        docs = []
+        for _, row in chunk.iterrows():
+            docs.append({
+                "content": f"Course: {row['Course']}\nTopics: {row['Topics']}\nLevel: {row['Level']}",
+                "metadata": {
+                    "course": row["Course"],
+                    "topics": row["Topics"],
+                    "level": row["Level"],
+                },
+            })
+        yield docs  # return chunks
 
 # ----------------- Insert to DB if Needed -----------------
 # def populate_db_if_empty(collection):
@@ -81,21 +82,30 @@ def load_documents():
 
 def populate_db_if_empty(collection):
     if collection is None:
-        print("⚠️ No Chroma collection. Skipping population.")
+        print("❌ No Chroma collection.")
         return
 
     try:
-        count = collection.count()
-        print(f"📦 DB currently contains {count} items")
-        if count == 0:
-            print("📥 Populating database...")
-            docs = load_documents()
+        if collection.count() > 0:
+            print("✔️ Collection already populated.")
+            return
+
+        print("🚀 Populating database (stream mode)...")
+
+        batch_index = 0
+        for docs in load_documents(batch_size=100):
+
             collection.add(
                 documents=[d["content"] for d in docs],
                 metadatas=[d["metadata"] for d in docs],
-                ids=[f"doc_{i}" for i in range(len(docs))]
+                ids=[f"doc_{batch_index}_{i}" for i in range(len(docs))]
             )
-            print("✅ DB population completed.")
+
+            print(f"📌 Batch {batch_index} inserted ({len(docs)} docs)")
+            batch_index += 1
+
+        print("🎉 DB population finished!")
+
     except Exception as e:
         print(f"❌ populate_db_if_empty error: {e}")
 

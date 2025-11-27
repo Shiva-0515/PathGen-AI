@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from rag_core import generate_roadmap, generate_quiz, evaluate_quiz, generate_feedback
+from rag_core import generate_roadmap, generate_quiz, evaluate_quiz, generate_feedback , populate_db_if_empty
 from run_roadmap import get_collection
 from models import RoadmapRequest, QuizRequest , EvaluateQuiz
 app = FastAPI()
@@ -15,6 +15,11 @@ class RoadmapRequest(BaseModel):
 class QuizRequest(BaseModel):
     language: str
     level: str
+
+@app.get("/init-db")
+def init_db():
+    populate_db_if_empty(collection)
+    return {"status": "ok"}
 
 @app.post("/generate-roadmap")
 def generate(request: RoadmapRequest):
