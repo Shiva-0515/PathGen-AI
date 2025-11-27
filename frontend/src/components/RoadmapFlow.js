@@ -8,8 +8,7 @@ import {
   Divider,
   TextField,
   MenuItem,
-  Box,
-  Button
+  Box
 } from '@mui/material';
 import {
   ReactFlow,
@@ -96,13 +95,13 @@ const RoadmapFlow = () => {
   const handleSubmit = async () => {
     const days = extractNumber(duration);
   if (!course || !level || !days) return;
-
+    const normalizedDays = String(days);
   setIsLoading(true);
 
       try {
         const response = await axios.post(
           `${API}/generate-roadmap`,
-          { course, level,duration: days },
+          { course, level,duration: normalizedDays},
           { withCredentials: true }
         );
 
@@ -199,45 +198,16 @@ const RoadmapFlow = () => {
               sx={{ flex: 1, minWidth: "200px" }}
             />
 
-          <Button
-                variant="contained"
-                onClick={handleSubmit}
-                disabled={isLoading}
-                sx={{
-                  height: "45px",
-                  flexShrink: 0,
-                  borderRadius: "6px",
-                  fontWeight: 600,
-
-                  /** 👇 FORCE default background */
-                  backgroundColor: "#1e88e5 !important",
-
-                  /** 👇 Force text color */
-                  color: "#fff !important",
-
-                  transition: "0.25s ease",
-                  boxShadow: "0 0 6px rgba(30,136,229,0.35)",
-
-                  "&:hover": {
-                    backgroundColor: "#1565c0 !important",
-                    boxShadow: "0 0 12px rgba(30,136,229,0.6)",
-                    transform: "translateY(-2px)",
-                  },
-
-                  "&:active": {
-                    backgroundColor: "#0d47a1 !important",
-                    transform: "scale(0.97)",
-                  },
-
-                  "&:disabled": {
-                    backgroundColor: "#90caf9 !important",
-                    color: "#e3f2fd !important",
-                    boxShadow: "none",
-                  }
-                }}
-              >
-                {isLoading ? "Generating..." : "Generate Roadmap"}
-              </Button>
+          <button
+            onClick={handleSubmit}
+            disabled={isLoading}
+            className="h-[45px] px-6 bg-blue-600 text-white rounded-lg font-semibold 
+                      shadow-md transition-all duration-200 
+                      hover:bg-blue-700 hover:shadow-blue-400 
+                      active:scale-95 disabled:bg-blue-300"
+          >
+            {isLoading ? "Generating..." : "Generate Roadmap"}
+          </button>
           </Box>
 
 
