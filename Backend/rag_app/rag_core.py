@@ -305,33 +305,86 @@ def evaluate_quiz(payload: EvaluateQuiz):
     }
 
 
+# def generate_feedback(eval_data):
+#     prompt = f"""
+#     You are an expert tutor. The student answered a quiz.
+#     Here are their results:
+#     Score: {eval_data['score']} / {eval_data['total']}
+#     Correct Answers: {eval_data['correctAnswers']}
+#     Wrong Answers: {eval_data['wrongAnswers']}
+
+#         Analyze the student's strengths and weaknesses based on these answers.
+#     Provide:
+#     - pros: what the student is strong at
+#     - cons: what the student struggles with
+#     - suggestions: how to improve weak areas
+
+#     Return strictly JSON with keys: pros, cons, suggestions.
+#     """
+
+#     response = client.models.generate_content(
+#         model="models/gemini-2.5-flash",
+#         contents=prompt
+#     )
+#     model_output = response.candidates[0].content.parts[0].text
+#     clean_output = re.sub(r"^```(?:json)?|```$", "", model_output.strip(), flags=re.MULTILINE)
+#     try:
+#         feedback = json.loads(clean_output)
+#         return feedback
+#     except json.JSONDecodeError:
+#         print("Failed to parse feedback JSON. Response was:")
+#         print(model_output)
+#         return {"pros": [], "cons": [], "suggestions": []}
+
+import json
+import re
+
 def generate_feedback(eval_data):
     prompt = f"""
-    You are an expert tutor. The student answered a quiz.
-    Here are their results:
-    Score: {eval_data['score']} / {eval_data['total']}
-    Correct Answers: {eval_data['correctAnswers']}
-    Wrong Answers: {eval_data['wrongAnswers']}
+You are an expert tutor analyzing a student's quiz performance.
 
-        Analyze the student's strengths and weaknesses based on these answers.
-    Provide:
-    - pros: what the student is strong at
-    - cons: what the student struggles with
-    - suggestions: how to improve weak areas
+Here are their results:
+Score: {eval_data['score']} / {eval_data['total']}
+Correct Answers: {eval_data['correctAnswers']}
+Wrong Answers: {eval_data['wrongAnswers']}
 
-    Return strictly JSON with keys: pros, cons, suggestions.
-    """
+Analyze the student's strengths and weaknesses.
+
+Return the response strictly in valid JSON format with this structure:
+
+{{
+  "pros": ["point 1", "point 2", ...],
+  "cons": ["point 1", "point 2", ...],
+  "suggestions": ["point 1", "point 2", ...]
+}}
+
+Rules:
+- Each list must contain at least 2 items.
+- Every item should be a single complete sentence.
+- No extra text before or after the JSON.
+- No markdown formatting, no ``` or language tags.
+"""
 
     response = client.models.generate_content(
         model="models/gemini-2.5-flash",
         contents=prompt
     )
-    model_output = response.candidates[0].content.parts[0].text
-    clean_output = re.sub(r"^```(?:json)?|```$", "", model_output.strip(), flags=re.MULTILINE)
+
+    model_output = response.candidates[0].content.parts[0].text.strip()
+
+    # Remove accidental markdown code fences
+    clean_output = re.sub(r"^```(?:json)?|```$", "", model_output, flags=re.MULTILINE).strip()
+
     try:
-        feedback = json.loads(clean_output)
-        return feedback
+        return json.loads(clean_output)
     except json.JSONDecodeError:
-        print("Failed to parse feedback JSON. Response was:")
-        print(model_output)
-        return {"pros": [], "cons": [], "suggestions": []}
+        # Second attempt: try to repair formatting mistakes
+        clean_output = clean_output.replace("\n", "").replace("\t", "").strip()
+        clean_output = re.sub(r"[^\x00-\x7F]+", "", clean_output)  # remove weird unicode if any
+        
+        try:
+            return json.loads(clean_output)
+        except:
+            print("❌ Failed to parse AI JSON output. Raw response:")
+            print(model_output)
+            return {"pros": [], "cons": [], "suggestions": []}
