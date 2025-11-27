@@ -10,7 +10,7 @@ from google.genai import types
 from google.api_core import retry
 
 # ----------------- Config -------------------
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(__file__)
 DB_PATH = os.path.join(BASE_DIR, "chroma_db")
 COLLECTION_NAME = "learning_paths"
 CSV_PATH = os.path.join(BASE_DIR, "Data", "Technology_and_Computer_Science_Learning_Path_Dataset.csv")
@@ -36,12 +36,14 @@ class GeminiEmbeddingFunction(EmbeddingFunction):
 # ----------------- Chroma Setup --------------
 def setup_collection():
     chroma_client = chromadb.PersistentClient(path=DB_PATH)
-    if COLLECTION_NAME not in [col.name for col in chroma_client.list_collections()]:
-        print(f"Creating collection: {COLLECTION_NAME}")
-        chroma_client.create_collection(name=COLLECTION_NAME)
+    collections = [col.name for col in chroma_client.list_collections()]
+    if COLLECTION_NAME not in collections:
+        print(f"📦 Creating new collection: {COLLECTION_NAME}")
+        collection = chroma_client.create_collection(name=COLLECTION_NAME)
     else:
-        print(f"Collection {COLLECTION_NAME} already exists.")
-        return chroma_client.get_collection(name=COLLECTION_NAME)
+        print(f"📁 Using existing collection: {COLLECTION_NAME}")
+        collection = chroma_client.get_collection(name=COLLECTION_NAME)
+    return collection
 
 # ----------------- Dataset Preparation -----------------
 def load_documents():

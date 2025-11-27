@@ -7,6 +7,7 @@ app = FastAPI()
 
 # Setup the collection once when server starts
 collection = get_collection()
+print("ChromaDB collection ready:", collection)
 class RoadmapRequest(BaseModel):
     course: str
     level: str

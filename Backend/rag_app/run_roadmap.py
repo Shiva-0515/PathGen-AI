@@ -8,16 +8,21 @@ from rag_core import generate_roadmap, populate_db_if_empty , setup_collection
 def get_collection():
     try:
         collection = setup_collection()
-
         if collection is None:
-            print("❌ setup_collection() returned None.")
+            print("❌ Failed to setup collection.")
             return None
 
-        populate_db_if_empty(collection)
+        count = collection.count()
+        print(f"📊 Current DB count: {count}")
+
+        if count == 0:
+            print("📝 Initializing database…")
+            populate_db_if_empty(collection)
+
         return collection
 
     except Exception as e:
-        print(f"❌ Error creating Chroma collection: {e}")
+        print(f"❌ get_collection error: {e}")
         return None
 
 #  Accept user input
