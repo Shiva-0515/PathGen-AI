@@ -206,7 +206,7 @@ const RoadmapFlow = () => {
               sx={{
                 height: "45px",
                 flexShrink: 0,
-                backgroundColor: "#1976d2 !important", 
+                backgroundColor: "#1e88e5 !important", 
                 color: "#fff !important",
                 borderRadius: "6px",
                 fontWeight: 600,
