@@ -1,4 +1,4 @@
-# PathGen AI - Personalized Learning Roadmap Generator
+# PathGen AI - Learning Roadmap Generator
 
 <div align="center">
 
